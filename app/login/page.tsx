@@ -1,144 +1,64 @@
 'use client';
 
-import { useState } from 'react';
-import { InputInit } from '../../components/ui/InputInit';
-import ButtonInit from '../../components/ui/ButtonInit';
+import { useEffect, useState } from 'react';
+import { Login } from '../../components/forms/Login';
+import { useRouter } from 'next/navigation';
 
-interface LoginProps {
-    onSubmit?: (data: { email: string; password: string }) => void;
-}
+export default function LoginPage() {
+    const router = useRouter();
+    const [state, setState] = useState(false);
+    const [token, setToken] = useState<string | null>(null);
 
-export default function Login({ onSubmit }: LoginProps) {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-    });
-    const [isFocused, setIsFocused] = useState<boolean>(false);
+    useEffect(() => {
+        const t = window.localStorage.getItem('tokenSite');
+        if (!t) return;
 
-    const [errors, setErrors] = useState<{ [key: string]: string }>({});
+        const checkToken = async () => {
+            try {
+                console.log('CHECK TOKEN');
+                const res = await fetch('/api/auth/token', {
+                    method: 'GET',
+                    headers: {
+                        authorization: `Bearer ${t}`,
+                    },
+                });
+                const data = await res.json();
+                if (data?.success) {
+                    setState(true);
+                    setToken(t);
+                    router.replace('/');
+                } else {
+                    window.localStorage.removeItem('tokenSite');
+                    setState(false);
+                    setToken(null);
+                }
+            } catch {
+                window.localStorage.removeItem('tokenSite');
+                setState(false);
+                setToken(null);
+            }
+        };
+        checkToken();
+    }, [router]);
 
-    const validateForm = () => {
-        const newErrors: { [key: string]: string } = {};
-        if (!formData.email) {
-            newErrors.email = `L'email est requis`;
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = "Format d'email invalide";
+    const handleLogin = async (formData: { email: string; password: string }) => {
+        try {
+            const responseTestRegister = await fetch('/api/auth/register', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
+            const dataTestRegister = await responseTestRegister.json();
+
+            setState(!!dataTestRegister?.result?.success);
+            setToken(dataTestRegister?.result.token ?? null);
+
+            if (dataTestRegister?.result?.token) {
+                window.localStorage.setItem('tokenSite', dataTestRegister?.result?.token);
+                router.replace('/');
+            }
+        } catch (error) {
+            console.error('Erreur de connexion:', error);
+        } finally {
+            console.log('Fin de la connexion');
         }
-
-        if (!formData.password) {
-            newErrors.password = `Le mot de passe est requis`;
-        } else if (formData.password.length < 6) {
-            newErrors.password = `Le mot de passe doit contenir au moins 6 caractères`;
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-
-        // Efface l'erreur des que le user commence à taper
-        if (errors[name]) {
-            setErrors((prev) => ({
-                ...prev,
-                [name]: '',
-            }));
-        }
-    };
-
-    const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setIsFocused(true);
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setIsFocused(false);
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (!validateForm()) {
-            console.log('VALIDATE FORM FALSE', validateForm());
-            return;
-        }
-        console.log('FORM Data', formData);
-        // Remonter de données
-        onSubmit?.(formData);
-    };
-
-    const styles = {
-        container: {
-            display: 'flex',
-            flexDirection: 'column' as const,
-            gap: '8px',
-            width: '80%',
-            margin: '0 auto',
-            padding: '30px',
-            border: '1px solid',
-            borderRadius: '5px',
-        },
-        title: {
-            fontSize: '22px',
-            fontWeight: 700,
-            textAlign: 'center' as const,
-            marginTop: '8px',
-        },
-        subtitle: {
-            fontSize: '18px',
-            fontWeight: 600,
-            textAlign: 'center' as const,
-            marginTop: '8px',
-        },
-        containerFormulaire: {
-            display: 'flex',
-            flexDirection: 'column' as const,
-            gap: '10px',
-        },
-    };
-
-    return (
-        <div style={styles.container} className={`container_login`}>
-            <div style={styles.title} className={`container_title`}>
-                Titre
-            </div>
-            <div style={styles.subtitle} className="container_subtitle">
-                Sous-titre
-            </div>
-            <div className="container_formulaire">
-                <form onSubmit={handleSubmit}>
-                    <div style={styles.containerFormulaire}>
-                        <InputInit type={'email'} name={'email'} placeholder={'Veuillez entrer votre email'} value={formData.email} error={errors.email} required onChange={handleInputChange} onFocus={handleInputFocus} onBlur={handleInputBlur} />
-                        <InputInit
-                            type={'password'}
-                            name={'password'}
-                            placeholder={'Veuillez entrer votre mot de passe'}
-                            value={formData.password}
-                            error={errors.password}
-                            required
-                            onChange={handleInputChange}
-                            onFocus={handleInputFocus}
-                            onBlur={handleInputBlur}
-                        />
-                        {/* <button type="submit">Se connecter</button> */}
-                        <ButtonInit type="submit">Se connecter</ButtonInit>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
+    return <Login onSubmit={handleLogin} />;
 }

@@ -1,37 +1,11 @@
 'use client';
+
 import Image from 'next/image';
 import styles from './page.module.css';
 
-import { useEffect, useState } from 'react';
-
 export default function Home() {
-    const [datas, setDatas] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await fetch('/api/users');
-                const data = await response.json();
-                console.log('DATA', data);
-                if (data.success) {
-                    setDatas(data.data);
-                } else {
-                    setError(data.error);
-                }
-            } catch (err) {
-                setError('Erreur lors du chargement des films');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUsers();
-    }, []);
     return (
         <div className={styles.page}>
-            {/* {datas} */}
             <main className={styles.main}>
                 <Image className={styles.logo} src="/next.svg" alt="Next.js logo" width={180} height={38} priority />
                 <ol>

@@ -14,15 +14,19 @@ export default function AccountPage() {
         try {
             console.log('Tentative de connexion avec:', formData);
 
-            const response = await fetch('/api/users');
+            const response = await fetch('/api/users', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
+            const responseTest = await fetch('/api/auth/', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
             const data = await response.json();
+            const dataTest = await responseTest.json();
             console.log('data ===> ', data);
+            console.log('dataTest ===> ', dataTest);
 
             if (data.success) {
-                const { email, password } = formData;
+                const { email } = formData;
                 console.log('email ===> ', email);
-                console.log('data.data.email ===> ', data.data.email);
-                if (email !== data.data.email) {
+                console.log('data.data ===> ', data.data);
+                console.log('data.data.email ===> ', data.data[0].email);
+                if (email !== data.data[0].email) {
                     setErrors(true);
                     console.log("L'email ou mot de passe incorrecte");
                     return;

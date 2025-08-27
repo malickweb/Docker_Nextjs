@@ -3,16 +3,24 @@
 }
 
 .container {
-    position: relative;
+    /* position: relative; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
 
+.container_nav.hidden,
 .hidden {
+    /* display: none; */
     opacity: 0;
+    z-index: -1;
+    width: 0;
 }
 
 .container_burgerMenu {
     position: relative;
-    left: 10px;
+    /* left: 10px; */
     width: 30px;
     height: var(--heightBurgerMenu);
     border: 1px solid #fff;
@@ -28,7 +36,6 @@
     position: absolute;
     top: 13px;
     left: 2px;
-    transition: all 0.1s;
 }
 
 .burgerMenu::before,
@@ -40,7 +47,7 @@
     position: absolute;
     top: -5px;
     left: 0px;
-    transition: all 0.3s;
+    transition: all 0.5s;
 }
 
 .burgerMenu::after {
@@ -51,33 +58,50 @@
     height: 0;
 }
 
-.burgerMenu.rotate::before {
+.burgerMenu.rotate::before,
+.burgerMenu.rotate::after {
     transform: rotate(40deg);
     top: 0;
 }
 .burgerMenu.rotate::after {
     transform: rotate(-40deg);
-    top: 0;
 }
 
 .container_nav {
-    position: absolute;
-    top: 0;
+    /* position: absolute; */
+    /* top: 0; */
+    top: calc(0 * var(--heightBurgerMenu));
     display: inline-flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    padding: 10px;
+    /* padding: 10px; */
     border: 1px solid #fff;
     border-radius: 5px;
-    transition: all 0.3s;
     color: #000;
     background-color: #fff;
 }
 
 .container_nav .container_burgerMenu {
-    top: 5px;
-    left: 25px;
+    top: 0px;
+    /* left: initial;
+    right: 5px; */
+    width: 15px;
+    height: 15px;
     border: 1px solid #000;
 }
-.container_nav .burgerMenu {
+
+.container_nav .container_burgerMenu .burgerMenu {
+    top: 6px;
+    left: 1px;
+}
+
+.container_nav ul li {
+    display: flex;
+    padding: 10px;
+}
+
+.container_nav ul li:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
 }

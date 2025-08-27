@@ -5,8 +5,6 @@ const uri = 'mongodb://root:example@mongodb:27017/';
 let clientPromise: Promise<MongoClient>;
 
 declare global {
-    // Ajoute une propriété personnalisée à l'objet global pour stocker la promesse du client MongoDB
-    // eslint-disable-next-line no-var
     var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
