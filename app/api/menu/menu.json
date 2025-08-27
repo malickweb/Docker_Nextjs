@@ -1,0 +1,13 @@
+{
+    "menu": {
+        "home": {
+            "url": "/"
+        },
+        "login": {
+            "url": "/login"
+        },
+        "signup": {
+            "url": "/signup"
+        }
+    }
+}
