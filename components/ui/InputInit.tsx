@@ -49,7 +49,7 @@ export function InputInit({ type = 'text', name, placeholder, value = '', error,
 
     return (
         <div style={styles.container} className="container_inputEmail">
-            <input style={styles.input} type={type} name={name} placeholder={placeholder} value={value} required onFocus={handleFocus} onBlur={handleBlur} onChange={onChange} />
+            <input style={styles.input} type={type} name={name} placeholder={placeholder} value={value} required={required} onFocus={handleFocus} onBlur={handleBlur} onChange={onChange} />
             {error && <div style={styles.error}>{error}</div>}
         </div>
     );

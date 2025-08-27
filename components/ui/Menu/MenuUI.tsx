@@ -6,7 +6,6 @@ interface MenuUIProps {
     state?: boolean;
     onClick?: () => void;
     menu: { [key: string]: { [url: string]: string } };
-    //menu?: any[];
 }
 
 export function MenuUI({ state, onClick, menu }: MenuUIProps) {
@@ -18,7 +17,7 @@ export function MenuUI({ state, onClick, menu }: MenuUIProps) {
         <div className={`container`}>
             <nav className={`container_nav ${!state ? 'hidden' : ''}`}>
                 <ul>
-                    {Object.keys(menu)?.map((item: any, index: number) => (
+                    {Object.keys(menu)?.map((item: string, index: number) => (
                         <li key={index}>
                             <Link href={`${menu[item].url}`}>{`${item}`}</Link>
                         </li>

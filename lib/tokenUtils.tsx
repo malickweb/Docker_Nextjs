@@ -4,10 +4,9 @@ import { AES, enc, mode, pad } from 'crypto-js';
 
 export class UserLogin {
     key: string;
-    data: any;
+    data: string | { [key: string]: string } = '';
     passPhrase: string;
     result: { [key: string]: string };
-    client: any;
 
     constructor() {
         this.key = '123';
@@ -21,16 +20,10 @@ export class UserLogin {
             const iv = enc.Utf8.parse('0000000000000000');
 
             const cryptoEncrypt = AES.encrypt(elm, key, { iv: iv, mode: mode.CBC, padding: pad.Pkcs7 }).toString();
-            console.log('crypto_Encrypt', cryptoEncrypt);
-
-            const cryptoDecrypt = AES.decrypt(cryptoEncrypt, key, { iv: iv, mode: mode.CBC, padding: pad.Pkcs7 }).toString(enc.Utf8);
-
-            console.log('Original:', elm);
-            console.log('crypto_Decrypt', cryptoDecrypt);
+            // const cryptoDecrypt = AES.decrypt(cryptoEncrypt, key, { iv: iv, mode: mode.CBC, padding: pad.Pkcs7 }).toString(enc.Utf8);
 
             return cryptoEncrypt;
-        } catch (error) {
-            console.error('Error in encodedata:', error);
+        } catch {
             return 'Error Encode Data';
         }
     }
@@ -41,7 +34,6 @@ export class UserLogin {
 
     generationToken(userId: string) {
         const id = userId;
-        // console.log('generationToken ==> ID ===> ', id);
         return jwt.sign({ id }, this.passPhrase as string, { algorithm: 'HS256', expiresIn: '1h' });
     }
 
@@ -49,39 +41,30 @@ export class UserLogin {
         try {
             const secret = process.env.JWT_SECRET || this.passPhrase;
             const decoded = jwt.verify(token, secret) as { id: string; iat: number; exp: number };
-
-            console.log('DECODED', decoded.id);
-            console.log('IAT', decoded.iat);
-            console.log('EXP', decoded.exp);
-
-            if (typeof decoded === 'object' && decoded !== null && 'id' in decoded) {
-                console.log('DECODED id', decoded.id);
-            }
             const timestamp = decoded.exp * 1000;
             const dateNow = Date.now();
+
             if (dateNow > timestamp) {
                 return false;
             }
-            // console.log('TOKEN TRUE ', decoded);
+
             return true;
-        } catch (error) {
-            console.log('ERROR', error);
+        } catch {
             return false;
         }
     }
 
     initLogin() {
         try {
-            if (typeof this.data === 'object') {
-                Object.keys(this.data).map((elm) => {
-                    this.result[elm] = this.encodedata(this.data[elm]);
+            if (typeof this.data === 'object' && this.data !== null) {
+                Object.keys(this.data).forEach((elm: string) => {
+                    this.result[elm] = this.encodedata((this.data as { [key: string]: string | [] })[elm] as string);
                 });
-                console.log('<== RESULT ==> ', this.result);
-            } else {
-                console.log('ELSE ===> THIS.DATA', this.data);
+            } else if (typeof this.data === 'string') {
+                this.encodedata(this.data);
             }
-        } catch (error) {
-            console.log('Error <== InitLogin ==>');
+        } catch {
+            return 'Error <== InitLogin ==>';
         }
     }
 }

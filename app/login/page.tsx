@@ -15,7 +15,6 @@ export default function LoginPage() {
 
         const checkToken = async () => {
             try {
-                console.log('CHECK TOKEN');
                 const res = await fetch('/api/auth/token', {
                     method: 'GET',
                     headers: {
@@ -49,7 +48,7 @@ export default function LoginPage() {
             setState(!!dataTestRegister?.result?.success);
             setToken(dataTestRegister?.result.token ?? null);
 
-            if (dataTestRegister?.result?.token) {
+            if (token && state) {
                 window.localStorage.setItem('tokenSite', dataTestRegister?.result?.token);
                 router.replace('/');
             }

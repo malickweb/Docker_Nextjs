@@ -5,7 +5,7 @@ import { LoginForm } from '../../components/forms/LoginForm';
 
 export default function AccountPage() {
     const [isLoading, setIsLoading] = useState(false);
-    const [datas, setDatas] = useState<any>(null);
+    const [datas, setDatas] = useState<{ [key: string]: string } | null>(null);
     const [errors, setErrors] = useState(true);
 
     const handleLogin = async (formData: { email: string; password: string }) => {
@@ -15,32 +15,26 @@ export default function AccountPage() {
             console.log('Tentative de connexion avec:', formData);
 
             const response = await fetch('/api/users', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
-            const responseTest = await fetch('/api/auth/', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
+            // const responseTest = await fetch('/api/auth/', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
             const data = await response.json();
-            const dataTest = await responseTest.json();
-            console.log('data ===> ', data);
-            console.log('dataTest ===> ', dataTest);
+            // const dataTest = await responseTest.json();
 
             if (data.success) {
                 const { email } = formData;
-                console.log('email ===> ', email);
-                console.log('data.data ===> ', data.data);
-                console.log('data.data.email ===> ', data.data[0].email);
                 if (email !== data.data[0].email) {
                     setErrors(true);
-                    console.log("L'email ou mot de passe incorrecte");
-                    return;
+                    return "L'email ou mot de passe incorrecte";
                 }
                 setErrors(false);
                 setDatas(data.data);
-                console.log('Connexion réussie:', data.data);
+                return datas;
             } else {
                 setErrors(true);
-                console.log('Erreur:', data.error);
+                return errors;
             }
         } catch (error) {
             setErrors(true);
-            console.error('Erreur de connexion:', error);
+            return `Erreur de connexion : ${error}`;
         } finally {
             setIsLoading(false);
         }

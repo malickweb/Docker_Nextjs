@@ -11,7 +11,7 @@ export async function GET() {
             success: true,
             data: users,
         });
-    } catch (error) {
+    } catch {
         return NextResponse.json(
             {
                 success: false,
@@ -48,7 +48,6 @@ export async function POST(request: Request) {
 
             if (result.acknowledged) {
                 // On log aussi le résultat de l'insertion
-                console.log('Utilisateur ajouté avec succès, ID:', result.insertedId);
                 return NextResponse.json({
                     success: true,
                     message: 'Utilisateur ajouté avec succès',
@@ -67,7 +66,6 @@ export async function POST(request: Request) {
         }
     } catch (error) {
         // Affichage détaillé de l'erreur dans la console
-        console.error('Erreur lors du POST:', error);
         return NextResponse.json(
             {
                 success: false,

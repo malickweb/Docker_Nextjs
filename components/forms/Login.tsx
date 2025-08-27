@@ -4,8 +4,6 @@ import { useState } from 'react';
 import { InputInit } from '../../components/ui/InputInit';
 import ButtonInit from '../../components/ui/ButtonInit';
 
-import { encodeEmail, decodeEmail } from '../../services/emailEncoder';
-
 interface LoginProps {
     onSubmit?: (data: { email: string; password: string }) => void;
 }
@@ -16,12 +14,6 @@ export function Login({ onSubmit }: LoginProps) {
     });
 
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-    const fetchData = async () => {
-        const responseTest = await fetch('/api/auth/register', { method: 'POST', body: JSON.stringify({ email: formData.email, password: formData.password }) });
-        const dataTest = await responseTest.json();
-        console.log('dataTest LOGIN', dataTest);
-    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -83,20 +75,6 @@ export function Login({ onSubmit }: LoginProps) {
         if (!validateForm()) {
             return;
         }
-        const encodedEmail = btoa(formData.email); // Encodage Base64
-        // Ou pour un encodage plus sécurisé :
-        // const encodedEmail = encodeURIComponent(formData.email);
-
-        const encode = encodeEmail(formData.email);
-        // console.log('ENCODE ===>', encode);
-        // console.log('DECODE ===> ', decodeEmail(encode));
-        const encodedFormData = {
-            ...formData,
-            email: encodedEmail,
-        };
-
-        // console.log('formData', formData);
-        // console.log('encodedFormData', encodedFormData);
 
         onSubmit?.(formData);
     };
@@ -154,7 +132,6 @@ export function Login({ onSubmit }: LoginProps) {
                             onFocus={handleInputFocus}
                             onBlur={handleInputBlur}
                         />
-                        {/* <button type="submit">Se connecter</button> */}
                         <ButtonInit type="submit">Se connecter</ButtonInit>
                     </div>
                 </form>

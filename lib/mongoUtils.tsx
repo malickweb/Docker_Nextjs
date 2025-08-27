@@ -1,5 +1,5 @@
 import clientPromise from './mongodb';
-import { ObjectId } from 'mongodb';
+import { ObjectId, MongoClient, Db } from 'mongodb';
 import { generateToken, encodedata } from './tokenUtils';
 
 export interface User {
@@ -12,27 +12,34 @@ export interface User {
 
 export interface MongoResponse {
     success: boolean;
-    data?: any;
+    data?: { [key: string]: string | number } | unknown;
     message?: string;
     token?: string;
     error?: string;
 }
 
 export class MongoUtils {
-    private client: any;
-    private db: any;
+    private client: MongoClient | null = null;
+    private db: Db | null = null;
+
+    private getDb(): Db {
+        if (!this.db) {
+            throw new Error('DB non initialisée. Appelez connect() avant.');
+        }
+        return this.db;
+    }
 
     // Recherche utilisateur par email
     async findUserByEmail(elm: string): Promise<MongoResponse> {
         try {
             if (!this.db) await this.connect();
-            const collection = this.db.collection('users');
+            const collection = this.getDb().collection('users');
             const user = await collection.findOne({ email: elm });
 
             if (!user) return { success: false, message: 'Utilisateur pas dans la DB' };
 
             return { success: true, message: 'Utilisateur dans la DB', data: user };
-        } catch (error) {
+        } catch {
             console.error('Erreur dans la recherche utilisateur par email');
             return { success: false, error: 'Erreur dans la recherche utilisateur par email' };
         }
@@ -42,7 +49,7 @@ export class MongoUtils {
     async createUser(userData: Omit<User, '_id'>): Promise<MongoResponse> {
         try {
             if (!this.db) await this.connect();
-            const collection = this.db.collection('users');
+            const collection = this.getDb().collection('users');
 
             const encodeEmail = encodedata(userData.email);
             const token = generateToken(userData.email);
@@ -72,7 +79,7 @@ export class MongoUtils {
             await this.closeConnection();
             if (result?.acknowledged) return { success: true, message: 'Nouvelle entrée', token: token };
             return { success: false, error: "Erreur dans l'enregistrement" };
-        } catch (error) {
+        } catch {
             return { success: false, error: 'Erreur création utilisateur' };
         }
     }
@@ -81,7 +88,7 @@ export class MongoUtils {
     async deleteUser(email: string): Promise<MongoResponse> {
         try {
             if (!this.db) await this.connect();
-            const collection = this.db.collection('users');
+            const collection = this.getDb().collection('users');
             const encodeEmail = encodedata(email);
             const existingUser = await this.findUserByEmail(email);
             if (existingUser.success) {
@@ -98,10 +105,10 @@ export class MongoUtils {
     async getAllUsers(): Promise<MongoResponse> {
         try {
             if (!this.db) await this.connect();
-            const collection = this.db.collection('users');
+            const collection = this.getDb().collection('users');
             const users = await collection.find({}).toArray();
             return { success: true, data: users };
-        } catch (error) {
+        } catch {
             return { success: false };
         }
     }
@@ -113,8 +120,7 @@ export class MongoUtils {
             this.db = this.client.db('newProject');
             console.log('Connexion MongoDB réussie');
             return true;
-        } catch (error) {
-            console.error('Error Connect ==>', error);
+        } catch {
             return false;
         }
     }
