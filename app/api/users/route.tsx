@@ -64,7 +64,7 @@ export async function POST(request: Request) {
                 );
             }
         }
-    } catch (error) {
+    } catch {
         // Affichage détaillé de l'erreur dans la console
         return NextResponse.json(
             {

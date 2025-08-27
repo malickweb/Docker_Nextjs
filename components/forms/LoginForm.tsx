@@ -16,7 +16,6 @@ export function LoginForm({ onSubmit, loading = false, errorData }: LoginFormPro
         password: '',
     });
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
-    console.log('errorData', errorData);
     const validateForm = () => {
         const newErrors: { [key: string]: string } = {};
 
@@ -131,7 +130,8 @@ export function LoginForm({ onSubmit, loading = false, errorData }: LoginFormPro
             console.log('Erreur email:', errors.email);
             console.log('Erreur email errorData:', errorData);
         }
-    }, [errors]);
+    }, [errors, errorData]);
+
     return (
         <div style={styles.container}>
             <div style={styles.formWrapper}>

@@ -28,10 +28,6 @@ export class UserLogin {
         }
     }
 
-    async hashCompare(userId: string, hash: any) {
-        return bcrypt.compareSync(userId, hash);
-    }
-
     generationToken(userId: string) {
         const id = userId;
         return jwt.sign({ id }, this.passPhrase as string, { algorithm: 'HS256', expiresIn: '1h' });
