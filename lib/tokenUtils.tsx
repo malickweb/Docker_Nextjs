@@ -1,4 +1,3 @@
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { AES, enc, mode, pad } from 'crypto-js';
 
