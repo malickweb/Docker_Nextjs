@@ -1,5 +1,5 @@
 import { MongoClient } from 'mongodb';
-import clientPromise from '../../lib/mongodb';
+import { clientPromise } from '../../lib/mongodb';
 
 export default class MongoDB {
     client: Promise<MongoClient>;

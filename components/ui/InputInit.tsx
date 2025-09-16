@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 interface InputProps {
@@ -46,10 +48,14 @@ export function InputInit({ type = 'text', name, placeholder, value = '', error,
         setIsFocused(false);
         onBlur?.(e);
     };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsFocused(false);
+        onChange?.(e);
+    };
 
     return (
         <div style={styles.container} className="container_inputEmail">
-            <input style={styles.input} type={type} name={name} placeholder={placeholder} value={value} required={required} onFocus={handleFocus} onBlur={handleBlur} onChange={onChange} />
+            <input style={styles.input} type={type} name={name} placeholder={placeholder} value={value} required={required} onFocus={handleFocus} onBlur={handleBlur} onChange={handleChange} />
             {error && <div style={styles.error}>{error}</div>}
         </div>
     );

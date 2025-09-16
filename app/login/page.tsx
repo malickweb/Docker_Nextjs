@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Login } from '../../components/forms/Login';
+import { Login } from '../../components/Forms/Login';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -25,7 +25,7 @@ export default function LoginPage() {
                 if (data?.success) {
                     setState(true);
                     setToken(t);
-                    router.replace('/');
+                    // router.replace('/');
                 } else {
                     window.localStorage.removeItem('tokenSite');
                     setState(false);
@@ -50,7 +50,7 @@ export default function LoginPage() {
 
             if (token && state) {
                 window.localStorage.setItem('tokenSite', dataTestRegister?.result?.token);
-                router.replace('/');
+                // router.replace('/');
             }
         } catch (error) {
             console.error('Erreur de connexion:', error);

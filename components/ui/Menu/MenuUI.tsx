@@ -9,17 +9,17 @@ interface MenuUIProps {
 }
 
 export function MenuUI({ state, onClick, menu }: MenuUIProps) {
-    const handleClick: React.MouseEventHandler<HTMLDivElement> = () => {
+    const handleClick: React.MouseEventHandler<HTMLDivElement | HTMLAnchorElement> = () => {
         onClick?.();
     };
-
     return (
         <div className={`container`}>
+            {/* <nav className={`container_nav ${!state ? 'hidden' : ''}`}> */}
             <nav className={`container_nav ${!state ? 'hidden' : ''}`}>
                 <ul>
                     {Object.keys(menu)?.map((item: string, index: number) => (
                         <li key={index}>
-                            <Link href={`${menu[item].url}`}>{`${item}`}</Link>
+                            <Link onClick={handleClick} href={`${menu[item].url}`}>{`${item}`}</Link>
                         </li>
                     ))}
                 </ul>

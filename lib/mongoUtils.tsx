@@ -1,4 +1,4 @@
-import clientPromise from './mongodb';
+import { clientPromise } from './mongodb';
 import { ObjectId, MongoClient, Db } from 'mongodb';
 import { generateToken, encodedata } from './tokenUtils';
 
@@ -121,15 +121,16 @@ export class MongoUtils {
             console.log('Connexion MongoDB réussie');
             return true;
         } catch {
+            console.log('FALSE CONNECT');
             return false;
         }
     }
 
-    // Fermeture de la connexion
+    // Fermeture des connexions
     async closeConnection() {
         try {
             if (this.client) {
-                await this.client.close;
+                await this.client.close();
                 console.log('Connexion MongoDB fermé');
             }
         } catch (error) {

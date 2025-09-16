@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { InputInit } from '../../components/ui/InputInit';
-import ButtonInit from '../../components/ui/ButtonInit';
+import { InputInit } from '../ui/InputInit';
+import ButtonInit from '../ui/ButtonInit';
 
 interface LoginProps {
     onSubmit?: (data: { email: string; password: string }) => void;
