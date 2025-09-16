@@ -130,14 +130,6 @@ nextjs-app/
 2. **Configurer les variables d'environnement** dans le dashboard Vercel
 3. **Déploiement automatique** à chaque push
 
-### Variables d'environnement Vercel
-
-```env
-JWT_SECRET=votre_secret_jwt_production
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database_name
-NODE_ENV=production
-```
-
 ### Déploiement manuel
 
 ```bash
