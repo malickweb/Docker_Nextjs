@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import Menu from '../components/menu/Menu';
+import Menu from '../components/menu/menu';
 import { ThemeProvider } from '../components/Theme/ThemeProvider';
 import { ButtonTheme } from '../components/ui/ButtonTheme/ButtonTheme';
 
