@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 // Interfaces
 import { Sale } from '../../../interfaces/typeSale';
-import { Card } from '../../../components/cards/Card';
+import { Card } from '../../../components/cards/card';
 import { ArrowUI } from './Arrows/ArrowsUI';
 
 // css

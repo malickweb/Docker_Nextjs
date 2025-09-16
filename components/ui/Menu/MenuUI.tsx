@@ -1,4 +1,3 @@
-//import { getMenu } from '../../../services/menuService';
 import './MenuUI.css';
 import Link from 'next/link';
 
@@ -14,7 +13,6 @@ export function MenuUI({ state, onClick, menu }: MenuUIProps) {
     };
     return (
         <div className={`container`}>
-            {/* <nav className={`container_nav ${!state ? 'hidden' : ''}`}> */}
             <nav className={`container_nav ${!state ? 'hidden' : ''}`}>
                 <ul>
                     {Object.keys(menu)?.map((item: string, index: number) => (

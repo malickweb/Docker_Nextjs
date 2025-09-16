@@ -46,10 +46,7 @@ export function CardsUI({ data, size = 'md', onClick, offsetElement, currentSlid
         return;
     }, []);
 
-    //const marginLeft = -(currentSlide ? currentSlide * (widthSlider / data?.length) : 0); // Position actuelle
     const marginLeft = -(currentSlide ? currentSlide * widthCards : 0); // Position actuelle
-    console.log('marginLeft', marginLeft);
-    console.log('widthSlider', widthSlider);
 
     return (
         <div className="containerCard">
