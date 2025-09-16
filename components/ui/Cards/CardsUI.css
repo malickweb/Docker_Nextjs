@@ -1,0 +1,41 @@
+.containerCard {
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    border: 1px solid var(--foreground);
+    overflow: hidden;
+    /* animation: slider-scroll 20s linear infinite;
+    will-change: transform; */
+}
+
+.containerCard:hover {
+    animation-play-state: paused;
+}
+
+.sliderCard {
+    display: flex;
+    transition: all 0.3s linear;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* margin: 0 10px; */
+    min-height: 180px;
+    min-width: 250px;
+}
+.card ul li {
+    width: 100%;
+    list-style: none;
+}
+
+@keyframes slider-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-200%);
+    }
+}

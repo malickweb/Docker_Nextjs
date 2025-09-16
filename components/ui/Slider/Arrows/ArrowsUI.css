@@ -1,0 +1,12 @@
+.containerArrow .arrowLeft,
+.containerArrow .arrowRight {
+    position: absolute;
+    top: 50%;
+    left: -50px;
+    cursor: pointer;
+    transform: translate(calc(-50% + 25px), -50%);
+}
+.containerArrow .arrowRight {
+    left: inherit;
+    right: -50px;
+}
