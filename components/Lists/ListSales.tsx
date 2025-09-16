@@ -1,6 +1,5 @@
-import { Slider } from '../slider/Slider';
-// SLIDER
-// LISTE
+import { Slider } from '../slider/slider';
+
 export function ListSales() {
     return <Slider />;
 }
