@@ -1,6 +1,6 @@
 'use client';
 
-import { ListSales } from '../components/Lists/listSales';
+import { ListSales } from '../components/lists/listSales';
 import styles from './page.module.css';
 
 export default function Home() {
