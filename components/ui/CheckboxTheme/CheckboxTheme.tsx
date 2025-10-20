@@ -1,6 +1,6 @@
 import './CheckboxTheme.css';
 
-import { useTheme } from '../../Theme/ThemeProvider';
+import { useTheme } from '../../theme/ThemeProvider';
 
 export function CheckboxTheme() {
     const { theme, toggleTheme } = useTheme();
