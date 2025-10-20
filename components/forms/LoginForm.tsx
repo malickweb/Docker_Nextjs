@@ -15,6 +15,7 @@ export function LoginForm({ onSubmit, loading = false, errorData }: LoginFormPro
         email: '',
         password: '',
     });
+
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const validateForm = () => {
         const newErrors: { [key: string]: string } = {};
@@ -32,6 +33,7 @@ export function LoginForm({ onSubmit, loading = false, errorData }: LoginFormPro
         }
 
         setErrors(newErrors);
+
         return Object.keys(newErrors).length === 0;
     };
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Login } from '../../components/Forms/Login';
+import { Login } from '../../components/Forms/login';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {

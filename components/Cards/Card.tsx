@@ -10,6 +10,5 @@ interface Card {
 
 export function Card({ data, onClick, offsetElement, currentSlide }: Card) {
     const items = data;
-
     return <CardsUI data={items} currentSlide={currentSlide} onClick={onClick} offsetElement={offsetElement} />;
 }

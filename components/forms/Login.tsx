@@ -7,6 +7,7 @@ import ButtonInit from '../ui/ButtonInit';
 interface LoginProps {
     onSubmit?: (data: { email: string; password: string }) => void;
 }
+
 export function Login({ onSubmit }: LoginProps) {
     const [formData, setFormData] = useState({
         email: '',

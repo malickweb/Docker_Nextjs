@@ -10,7 +10,7 @@ export function Title() {
     const { isVisible } = useIntersectionObserver({ wrapperRef });
 
     const name = 'Malick Belgrine';
-    const title = 'Développeur Front-End Senior | Spécialiste A/B Testing & Expérience Utilisateur';
+    const title = 'Développeur Front-End Senior';
 
     useEffect(() => {
         const handleScroll = () => {
