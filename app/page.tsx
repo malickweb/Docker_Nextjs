@@ -1,6 +1,6 @@
 'use client';
 
-import { Title } from '../components/title/title';
+import { Title } from '../components/Title/title';
 import { Skills } from '../components/Skills/skills';
 import { Slider } from '../components/Slider/slider';
 
