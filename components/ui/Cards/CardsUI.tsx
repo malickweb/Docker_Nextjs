@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Sale, Customer } from '../../../interfaces/typeSale';
 import './CardsUI.css';
 
-interface Slider {
+interface CardsUI {
     data: Sale[];
     size?: 'sm' | 'md' | 'lg';
     onClick?: () => void;
@@ -18,7 +18,7 @@ interface OffsetElement {
     slider: { [key: string]: number };
 }
 
-export function CardsUI({ data, size = 'md', onClick, offsetElement, currentSlide }: Slider) {
+export function CardsUI({ data, size = 'md', onClick, offsetElement, currentSlide }: CardsUI) {
     const [widthSlider, setWidthSlider] = useState<number>(0);
     const [widthCards, setWidthCards] = useState<number>(0);
     const items = data;
@@ -31,15 +31,12 @@ export function CardsUI({ data, size = 'md', onClick, offsetElement, currentSlid
             lg: { padding: '16px 32px', fontSize: '18px' },
         };
 
-        console.log('widthCards', widthCards);
-
         return { ...sizeStyles[size], width: widthCards };
     };
 
     useEffect(() => {
         if (typeof offsetElement === 'function') {
             const a = offsetElement();
-            console.log('A', a);
             setWidthSlider(a?.slider?.width);
             setWidthCards(a?.container?.width);
         }

@@ -3,35 +3,50 @@
 import { useState, useEffect } from 'react';
 import { MenuUI } from '../ui/Menu/MenuUI';
 import { getMenu } from '../../services/menuService';
+import { useIsMobile } from '../../hook/useIsMobile';
+import { useClickOutSide } from '../../hook/useClickOutSide';
+import { usefetchData } from '../../hook/useFetchData';
 
 export default function Menu() {
-    const [state, setState] = useState<boolean>(false);
-    const [menu, setMenu] = useState({});
-    const [error, setError] = useState(false);
+    // const [state, setState] = useState<boolean>(false);
+    // const [menu, setMenu] = useState({});
+    // const [error, setError] = useState(false);
+    const isMobile = useIsMobile();
+    // console.log('isMobile', isMobile);
+    const { datas, error, isLoading } = usefetchData({
+        url: '/api/fetchJson?jsonFile=true&url=menu',
+        jsonFile: true,
+    });
+
+    const { visible, wrapperRef } = useClickOutSide();
+
+    const [stateMobile, setStateMobile] = useState<boolean>(false);
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        // setState(visible);
+        console.log('HANDLE CLICK MENU ');
+    };
 
     useEffect(() => {
-        const fetchMenu = async () => {
-            try {
-                const menu = await getMenu();
-                if (menu) {
-                    console.log('menu', menu);
-                    setError(false);
-                    setMenu(menu);
-                }
-            } catch {
-                setError(true);
-            }
-        };
-        fetchMenu();
-    }, []);
+        setStateMobile(isMobile);
+    }, [isMobile]);
 
-    if (error) return <>Erreur de chargement du menu</>;
+    if (isLoading) {
+        return (
+            <div className="containerMenu">
+                <div>Loading...</div>
+            </div>
+        );
+    }
 
-    const handleClick = () => {
-        setState((prev) => !prev);
-
-        console.log('click');
-        console.log('state', state);
-    };
-    return <MenuUI state={state} onClick={handleClick} menu={menu} />;
+    if (error) {
+        return (
+            <div className="containerMenu">
+                <div>Error loading skills.</div>
+            </div>
+        );
+    }
+    if (datas?.success) {
+        const { response } = datas;
+        return <MenuUI stateMobile={stateMobile} state={visible} wrapperRef={wrapperRef} onClick={handleClick} menu={response} />;
+    }
 }

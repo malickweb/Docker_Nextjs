@@ -35,7 +35,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }, [theme]);
 
     const toggleTheme = useCallback(() => {
-        console.log('Use callBack ', theme);
         setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
     }, []);
 
@@ -46,7 +45,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 export function useTheme() {
     const ctx = useContext(ThemeContext);
-    console.log('ThemeContext', ctx);
+
     if (!ctx) {
         throw new Error('UseTheme used within ThemeProvider');
     }

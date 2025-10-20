@@ -40,9 +40,6 @@ export function SliderUI() {
         };
     }, []);
 
-    console.log('Slider ===> fetchData ', items);
-    console.log('data?.length', items?.length);
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error</div>;
     if (!items) return <div>Aucun Produit</div>;
@@ -80,14 +77,12 @@ export function SliderUI() {
 
     const handleClick = () => {
         setState((prev) => !prev);
-        console.log('state SLIDER', state);
     };
 
     const handleClickArrow = (direction: string) => {
         if (direction === 'right' && items?.length > currentSlide + 1) setCurrentSlide((prev) => prev + 1);
         else if (items?.length === currentSlide + 1) setCurrentSlide(0);
         if (currentSlide !== 0 && direction === 'left') setCurrentSlide((prev) => prev - 1);
-        console.log('currentSlide ===> ', currentSlide);
     };
 
     return (
