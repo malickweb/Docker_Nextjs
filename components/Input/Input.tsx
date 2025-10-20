@@ -9,13 +9,13 @@ type INPUT = {
 };
 
 export function Input({ type, name, onClick, onChange }: INPUT) {
-    const [state, setState] = useState<boolean>(false);
     const [formData, setFormData] = useState({
         text: '',
     });
+    console.log('name', name);
 
     const handleClick = () => {
-        setState((prev) => !prev);
+        onClick?.();
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +25,7 @@ export function Input({ type, name, onClick, onChange }: INPUT) {
             ...prev,
             [name]: value,
         }));
-        console.log('NAME', formData);
+        console.log('NAME formData', formData);
         console.log('VALUE', value);
     };
 

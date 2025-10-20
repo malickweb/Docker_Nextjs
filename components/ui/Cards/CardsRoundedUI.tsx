@@ -22,7 +22,7 @@ export function CardsRoundedUI({ title, id, onClick }: CardsRoundedUI) {
 
     return (
         <div ref={wrapperRef} className={`containerCardRounded ${isApparead ? `isVisible` : `notVisible`}`} onClick={onClick}>
-            <div className="skill">{title}</div>
+            <div className={`skill cards_${id}`}>{title}</div>
         </div>
     );
 }

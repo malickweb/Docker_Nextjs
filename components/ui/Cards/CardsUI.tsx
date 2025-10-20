@@ -19,7 +19,7 @@ interface OffsetElement {
 }
 
 export function CardsUI({ data, size = 'md', onClick, offsetElement, currentSlide }: CardsUI) {
-    const [widthSlider, setWidthSlider] = useState<number>(0);
+    // const [widthSlider, setWidthSlider] = useState<number>(0);
     const [widthCards, setWidthCards] = useState<number>(0);
     const items = data;
 
@@ -37,11 +37,11 @@ export function CardsUI({ data, size = 'md', onClick, offsetElement, currentSlid
     useEffect(() => {
         if (typeof offsetElement === 'function') {
             const a = offsetElement();
-            setWidthSlider(a?.slider?.width);
+            // setWidthSlider(a?.slider?.width);
             setWidthCards(a?.container?.width);
         }
         return;
-    }, []);
+    }, [offsetElement]);
 
     const marginLeft = -(currentSlide ? currentSlide * widthCards : 0); // Position actuelle
 

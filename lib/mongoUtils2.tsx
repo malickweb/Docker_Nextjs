@@ -1,4 +1,4 @@
-import { ObjectId, MongoClient, Db } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 import { clientPromise2 } from './mongodb';
 
 export class MongoUtils2 {
@@ -20,7 +20,7 @@ export class MongoUtils2 {
             const collection = this.getDb().collection('sales');
             const resultat = await collection.find({}).limit(8).toArray();
             return resultat;
-        } catch (error) {
+        } catch {
             return 'Error ObtainData';
         }
     }

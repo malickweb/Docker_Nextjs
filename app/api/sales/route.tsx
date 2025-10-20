@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { obtainData } from './../../../lib/mongoUtils2';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
     try {
         const data = await obtainData();
         return NextResponse.json({

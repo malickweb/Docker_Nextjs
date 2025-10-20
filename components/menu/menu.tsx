@@ -2,17 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { MenuUI } from '../ui/Menu/MenuUI';
-import { getMenu } from '../../services/menuService';
 import { useIsMobile } from '../../hook/useIsMobile';
 import { useClickOutSide } from '../../hook/useClickOutSide';
 import { usefetchData } from '../../hook/useFetchData';
 
 export default function Menu() {
-    // const [state, setState] = useState<boolean>(false);
-    // const [menu, setMenu] = useState({});
-    // const [error, setError] = useState(false);
     const isMobile = useIsMobile();
-    // console.log('isMobile', isMobile);
     const { datas, error, isLoading } = usefetchData({
         url: '/api/fetchJson?jsonFile=true&url=menu',
         jsonFile: true,
@@ -21,7 +16,7 @@ export default function Menu() {
     const { visible, wrapperRef } = useClickOutSide();
 
     const [stateMobile, setStateMobile] = useState<boolean>(false);
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleClick = () => {
         // setState(visible);
         console.log('HANDLE CLICK MENU ');
     };

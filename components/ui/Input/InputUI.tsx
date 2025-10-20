@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import './InputUI.css';
 
 type InputUI = {
@@ -21,16 +21,13 @@ function InputCheckbox({ name, onClick }: InputCheckbox) {
     console.log('InputCheckbox');
     return (
         <div className="containerCheckbox">
-            <input type="checkbox" className="sc-gJwTLC ikxBAC" onClick={onClick} />
+            <input type="checkbox" name={name} className="sc-gJwTLC ikxBAC" onClick={onClick} />
         </div>
     );
 }
 
 export function InputUI({ type = 'text', name, placeholder, value, onClick, onChange }: InputUI) {
-    const [state, setState] = useState();
-
-    const styles = {};
-
+    console.log('InputUI value', value);
     const handleClick = () => {
         onClick?.();
         console.log('CLICK');
@@ -38,7 +35,6 @@ export function InputUI({ type = 'text', name, placeholder, value, onClick, onCh
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange?.(e);
-
         console.log('CHANGE');
     };
 

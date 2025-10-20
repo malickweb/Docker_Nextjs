@@ -77,6 +77,7 @@ export function SliderUI() {
 
     const handleClick = () => {
         setState((prev) => !prev);
+        console.log('State', state);
     };
 
     const handleClickArrow = (direction: string) => {
