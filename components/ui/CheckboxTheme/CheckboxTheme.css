@@ -1,0 +1,38 @@
+.containerCheckboxTheme {
+    position: relative;
+    width: 50px;
+    height: 20px;
+}
+
+.containerCheckboxTheme input[type='checkbox'] {
+    opacity: 0;
+}
+
+.containerCheckboxTheme span {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--background);
+    border-radius: 10px;
+    background-color: var(--foreground);
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+}
+
+.containerCheckboxTheme span::before {
+    content: '';
+    width: 35%;
+    height: 90%;
+    background-color: var(--background);
+    border-radius: 50%;
+    transition: transform 0.3s linear;
+}
+
+.containerCheckboxTheme input[type='checkbox']:checked + span::before {
+    transform: translateX(30px);
+}

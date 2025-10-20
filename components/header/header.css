@@ -1,0 +1,5 @@
+header {
+    position: relative;
+    background-color: var(--foreground);
+    padding: 10px;
+}

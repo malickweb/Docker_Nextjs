@@ -1,0 +1,44 @@
+{
+    "skills": [
+        {
+            "id": 1,
+            "title": "HTML"
+        },
+        {
+            "id": 2,
+            "title": "CSS"
+        },
+        {
+            "id": 3,
+            "title": "JAVASCRIPT"
+        },
+        {
+            "id": 4,
+            "title": "NodeJs"
+        },
+        {
+            "id": 5,
+            "title": "ExpressJs"
+        },
+        {
+            "id": 6,
+            "title": "tailwind"
+        },
+        {
+            "id": 7,
+            "title": "React"
+        },
+        {
+            "id": 8,
+            "title": "Docker"
+        },
+        {
+            "id": 9,
+            "title": "Angular"
+        },
+        {
+            "id": 10,
+            "title": "CSS"
+        }
+    ]
+}

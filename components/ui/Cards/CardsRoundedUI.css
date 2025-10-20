@@ -1,0 +1,81 @@
+.containerCardRounded.isVisible {
+    background-color: red;
+}
+
+.containerCardRounded {
+    display: flex;
+    flex-flow: wrap;
+    place-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 200px;
+    min-height: 190px;
+    color: var(--foreground);
+    border: 1px solid var(--foreground);
+    border-radius: 50%;
+}
+
+.containerCardRounded ul {
+    display: flex;
+}
+
+/* .containerCardRounded.isVisible {
+    -webkit-animation-name: slideInLeft;
+    animation-name: slideInLeft;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@-webkit-keyframes slideInLeft {
+    0% {
+        -webkit-transform: translateX(-10%);
+        transform: translateX(-10%);
+        visibility: visible;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+@keyframes slideInLeft {
+    0% {
+        -webkit-transform: translateX(-10%);
+        transform: translateX(-10%);
+        visibility: visible;
+    }
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+} */
+.containerCardRounded.isVisible {
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+@-webkit-keyframes slideInDown {
+    0% {
+        -webkit-transform: translateY(-20%);
+        transform: translateY(-20%);
+        visibility: visible;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+@keyframes slideInDown {
+    0% {
+        -webkit-transform: translateY(-20%);
+        transform: translateY(-20%);
+        visibility: visible;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}

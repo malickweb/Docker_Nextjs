@@ -1,0 +1,16 @@
+.containerTitle {
+    height: 100vw;
+    position: relative;
+    background: url('https://picsum.photos/id/1/200/300') center no-repeat fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: 4;
+}
+
+.containerTitle .containerParallax {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 70%;
+}
