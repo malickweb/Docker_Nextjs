@@ -1,4 +1,4 @@
-import Menu from '../menu/menu';
+import Menu from '../Menu/menu';
 import './header.css';
 
 export function Header() {
